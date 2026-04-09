@@ -10,7 +10,7 @@
 <style>
 body {
   margin: 0;
-  font-family: 'Poppins', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+  font-family: 'Poppins', 'Segoe UI Emoji', sans-serif;
   overflow: hidden;
 }
 
@@ -39,6 +39,7 @@ body {
   align-items: center;
   flex-direction: column;
   text-align: center;
+  padding: 20px;
 }
 
 .active {
@@ -47,28 +48,48 @@ body {
 }
 
 @keyframes fade {
-  from {opacity:0; transform:translateY(20px);}
+  from {opacity:0; transform:translateY(30px);}
   to {opacity:1;}
 }
 
-/* Button */
+/* Typing effect */
+.typing {
+  font-size: 30px;
+  font-weight: 600;
+  border-right: 3px solid black;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 3s steps(30) forwards, blink .7s infinite;
+}
+
+@keyframes typing {
+  to { width: 260px; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* Buttons */
 button {
   margin-top: 20px;
-  padding: 12px 28px;
+  padding: 14px 30px;
   border-radius: 30px;
   border: none;
   background: linear-gradient(45deg,#ff4d6d,#ff85a2);
   color: white;
   cursor: pointer;
   font-size: 16px;
+  box-shadow: 0 10px 25px rgba(255,77,109,0.3);
 }
 
 /* 🌷 Petals */
 .petal {
   position: fixed;
   top: -10px;
-  width: 15px;
-  height: 15px;
+  width: 12px;
+  height: 12px;
   background: pink;
   border-radius: 50%;
   opacity: 0.7;
@@ -76,19 +97,18 @@ button {
 }
 
 @keyframes fall {
-  to {
-    transform: translateY(110vh) rotate(360deg);
-  }
+  to { transform: translateY(110vh) rotate(360deg); }
 }
 
-/* 🎂 Cake */
+/* 🎂 Cake Glow */
 .cake {
-  width: 150px;
+  width: 160px;
   height: 100px;
   background: #ff85a2;
-  border-radius: 10px;
+  border-radius: 12px;
   position: relative;
   margin-top: 20px;
+  box-shadow: 0 0 25px rgba(255,133,162,0.6);
 }
 
 .candle {
@@ -100,18 +120,19 @@ button {
 }
 
 .flame {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   background: orange;
   border-radius: 50%;
   position: absolute;
-  top: -10px;
+  top: -12px;
+  box-shadow: 0 0 15px orange;
   animation: flicker 0.3s infinite alternate;
 }
 
 @keyframes flicker {
-  from {opacity:0.5;}
-  to {opacity:1;}
+  from {transform: scale(1);}
+  to {transform: scale(1.3);}
 }
 
 /* 🎉 Confetti */
@@ -119,34 +140,21 @@ button {
   position: fixed;
   width: 8px;
   height: 8px;
-  background: red;
   top: 0;
   animation: confettiFall 3s linear forwards;
 }
 
 @keyframes confettiFall {
-  to {
-    transform: translateY(100vh) rotate(720deg);
-  }
+  to { transform: translateY(100vh) rotate(720deg); }
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 MUSIC -->
 <audio id="bgMusic" loop></audio>
 
-<div onclick="toggleMusic()" style="
-position: fixed;
-bottom: 20px;
-right: 20px;
-background: rgba(255,255,255,0.7);
-padding: 10px 14px;
-border-radius: 50%;
-cursor: pointer;
-font-size: 18px;
-z-index: 999;">
+<div onclick="toggleMusic()" style="position:fixed;bottom:20px;right:20px;background:#fff;padding:10px;border-radius:50%;cursor:pointer;">
 🎵
 </div>
 
@@ -155,8 +163,8 @@ z-index: 999;">
 
 <!-- Page 1 -->
 <div class="page active" id="page1">
-  <h1>Hey Afra Khann 💖</h1>
-  <p>I have something special for you… 🫣✨<br><br>Choose a song 🎵</p>
+  <div class="typing">Hey Afra Khann 💖</div>
+  <p>I have something special for you… 🫣✨</p>
 
   <button onclick="startMusic('song1.mp3')">Play Song 1 🎶</button>
   <button onclick="startMusic('song2.mp3')">Play Song 2 💖</button>
@@ -230,35 +238,26 @@ function nextPage(n){
   document.getElementById('page'+n).classList.add('active');
 }
 
-/* 🎵 FIXED MUSIC */
 function startMusic(song){
   let music = document.getElementById("bgMusic");
-
   music.src = song;
-
-  // force play (mobile safe)
   music.play().catch(()=>{});
-
   nextPage(2);
 }
 
 function toggleMusic(){
   let music=document.getElementById("bgMusic");
-  if(music.paused){
-    music.play().catch(()=>{});
-  } else {
-    music.pause();
-  }
+  music.paused ? music.play() : music.pause();
 }
 
-/* 🌷 Petals */
+/* 🌷 petals */
 setInterval(()=>{
   let p=document.createElement("div");
   p.className="petal";
   p.style.left=Math.random()*100+"vw";
   p.style.animationDuration=(5+Math.random()*5)+"s";
   document.body.appendChild(p);
-},300);
+},250);
 
 /* Cake */
 function showCake(){
@@ -270,15 +269,18 @@ function showCake(){
   },3000);
 }
 
-/* 🎉 Confetti */
+/* Confetti */
 function party(){
-  for(let i=0;i<100;i++){
+  for(let i=0;i<120;i++){
     let c=document.createElement("div");
     c.className="confetti";
     c.style.left=Math.random()*100+"vw";
-    c.style.background=["#ff4d6d","#ffc2d1","#ff85a2","#ffd166"][Math.floor(Math.random()*4)];
+    c.style.background=["#ff4d6d","#ffc2d1","#ffd166","#ff85a2"][Math.floor(Math.random()*4)];
     document.body.appendChild(c);
   }
+
+  alert("💌 Surprise: You mean a lot to me, Afra 💖");
+
   setTimeout(()=>nextPage(6),1500);
 }
 </script>

@@ -199,7 +199,29 @@ z-index: 999;">
 <!-- Page 6 -->
 <div class="page" id="page6">
   <h1>💖 Happy Birthday Afra 💖</h1>
-  <p>... (your message same) ...</p>
+  <p>
+You are truly an amazing person 🌷<br><br>
+
+Barakallahu feekum! May Allah (SWT) grant you a long, healthy life filled with righteous deeds and happiness. May He strengthen your iman and reward you abundantly 🤲✨<br><br>
+
+I’m really grateful that we became such good friends ✨<br><br>
+
+And honestly, thank you so much for being there for me,<br>
+especially during my tough time 🤍<br>
+I truly believe Allah sent you into my life at the right moment 💫<br><br>
+
+Yesterday, I laughed so much after such a long time…<br>
+and that was all because of you 🥹💖<br><br>
+
+Thank you sooo much Miss Afraaa…<br>
+my cutie futie friend 😄🌷<br><br>
+
+May Allah give you everything you wish for,<br>
+always keep you happy,<br>
+and guide you on the best path in life 🤲✨<br><br>
+
+Stay the same beautiful soul always 💕
+</p>
 </div>
 
 <script>
