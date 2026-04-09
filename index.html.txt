@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Afra 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+  overflow: hidden;
+}
+
+/* Background */
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url('tulip.jpg') center/cover no-repeat;
+  z-index: -2;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,240,245,0.6);
+  z-index: -1;
+}
+
+/* Pages */
+.page {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.active {
+  display: flex;
+  animation: fade 1s;
+}
+
+@keyframes fade {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1;}
+}
+
+/* Button */
+button {
+  margin-top: 20px;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(45deg,#ff4d6d,#ff85a2);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* 🌷 Petals */
+.petal {
+  position: fixed;
+  top: -10px;
+  width: 15px;
+  height: 15px;
+  background: pink;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+/* 🎂 Cake */
+.cake {
+  width: 150px;
+  height: 100px;
+  background: #ff85a2;
+  border-radius: 10px;
+  position: relative;
+  margin-top: 20px;
+}
+
+.candle {
+  width: 10px;
+  height: 30px;
+  background: white;
+  position: absolute;
+  top: -30px;
+}
+
+.flame {
+  width: 10px;
+  height: 10px;
+  background: orange;
+  border-radius: 50%;
+  position: absolute;
+  top: -10px;
+  animation: flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker {
+  from {opacity:0.5;}
+  to {opacity:1;}
+}
+
+/* 🎉 Confetti */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: red;
+  top: 0;
+  animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop></audio>
+
+<div onclick="toggleMusic()" style="
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: rgba(255,255,255,0.7);
+padding: 10px 14px;
+border-radius: 50%;
+cursor: pointer;
+font-size: 18px;
+z-index: 999;">
+🎵
+</div>
+
+<div class="background"></div>
+<div class="overlay"></div>
+
+<!-- Page 1 -->
+<div class="page active" id="page1">
+  <h1>Hey Afra Khann 💖</h1>
+  <p>I have something special for you… 🫣✨<br><br>Choose a song 🎵</p>
+
+  <button onclick="startMusic('song1.mp3')">Play Song 1 🎶</button>
+  <button onclick="startMusic('song2.mp3')">Play Song 2 💖</button>
+</div>
+
+<!-- Page 2 -->
+<div class="page" id="page2">
+  <h1>Do you want to see what I made? 😉</h1>
+  <button onclick="nextPage(3)">Yes 😍</button>
+</div>
+
+<!-- Page 3 -->
+<div class="page" id="page3">
+  <h1>🌷 Happy Birthday 🌷</h1>
+  <button onclick="showCake()">Next 🎂</button>
+</div>
+
+<!-- Page 4 -->
+<div class="page" id="page4">
+  <h1>Make a wish… 🎂</h1>
+
+  <div class="cake">
+    <div class="candle" style="left:40px;">
+      <div class="flame" id="f1"></div>
+    </div>
+    <div class="candle" style="left:90px;">
+      <div class="flame" id="f2"></div>
+    </div>
+  </div>
+
+  <p>Blowing candles in 3 seconds… 😌</p>
+</div>
+
+<!-- Page 5 -->
+<div class="page" id="page5">
+  <h1>Oops… we forgot something 😅</h1>
+  <button onclick="party()">Pop Party 🎉</button>
+</div>
+
+<!-- Page 6 -->
+<div class="page" id="page6">
+  <h1>💖 Happy Birthday Afra 💖</h1>
+  <p>... (your message same) ...</p>
+</div>
+
+<script>
+function nextPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+n).classList.add('active');
+}
+
+/* 🎵 FIXED MUSIC */
+function startMusic(song){
+  let music = document.getElementById("bgMusic");
+
+  music.src = song;
+
+  // force play (mobile safe)
+  music.play().catch(()=>{});
+
+  nextPage(2);
+}
+
+function toggleMusic(){
+  let music=document.getElementById("bgMusic");
+  if(music.paused){
+    music.play().catch(()=>{});
+  } else {
+    music.pause();
+  }
+}
+
+/* 🌷 Petals */
+setInterval(()=>{
+  let p=document.createElement("div");
+  p.className="petal";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(p);
+},300);
+
+/* Cake */
+function showCake(){
+  nextPage(4);
+  setTimeout(()=>{
+    document.getElementById("f1").style.display="none";
+    document.getElementById("f2").style.display="none";
+    nextPage(5);
+  },3000);
+}
+
+/* 🎉 Confetti */
+function party(){
+  for(let i=0;i<100;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=["#ff4d6d","#ffc2d1","#ff85a2","#ffd166"][Math.floor(Math.random()*4)];
+    document.body.appendChild(c);
+  }
+  setTimeout(()=>nextPage(6),1500);
+}
+</script>
+
+</body>
+</html>
